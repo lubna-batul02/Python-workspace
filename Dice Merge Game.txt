@@ -1,0 +1,69 @@
+Dice Merge Game
+
+Rules:
+
+1. you can only merge same numbers of a dice (BLUE,PINK,WHITE,RED,ORANGE,PURPLE,STONE)
+2. each number will have a unique color and double occurrence also allowed 
+3. the dice will turn or change it's color when the same similar dices are merged (BLUE,PINK,WHITE,RED,ORANGE,PURPLE,STONE)
+4. if u merge same number then the number is incremented by 1
+5. if u merge 6 you will get a stone 
+6. if u merge the stone with other 2 similar stone it will burst and clear a square of space
+   and can continue the game 
+7. after each move a random dice is added to the game 
+8. the game should continue until no space is left 
+9. if all spaces are occupied then the game will comes to end 
+10. we can change the double dice position by rotating (UP, DOWN, LEFT, RIGHT)
+
+Design:
+
+1. drag dice from keyboard to move the dice*
+2. give some score when user merges the dice*
+3. end game when there is no empty space
+4. clear a square of space when 3 similar stones are merged*
+5. the (WHITE DICE=1,BLUE=2,PINK=3, ORANGE=4, PURPLE=5, RED=6, STONE OR DIAMOND)
+6. The game board should have 25 box (5 X 5) *
+7. The user should take input which is dice from a bottom or under the game board *
+8. the input board will change its position when user tap the dices(2 dice)*
+9. if all the spaces are occupied the board of game over with score should appear also with continue button and exit
+10. dice image(1-6), background, font for score & menu
+11. after each move generate a new dice for the next move*
+12. check the stone on neighbor sides then merge & clear square of space 
+Input:
+
+1. place new dice
+2. press 2 to move up
+3. press 8 to move down 
+4. press 4 to move left
+5. press 6 to move right
+
+score:
+
+1. use global variable score and add 10 when user merges dice
+2. 2+2=4 -> 40 the score should increase like this
+
+UI / Visual Plan
+
+1. Top - score display
+2. Center - Game 5 X 5 board
+3. Down - random dice generator
+4. GAME OVER - restart, Exit 
+5. dice with colors 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

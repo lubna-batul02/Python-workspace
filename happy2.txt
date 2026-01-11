@@ -1,1 +1,5 @@
 this file is created from newbranch
+<<<<<<< HEAD
+=======
+hi
+>>>>>>> 40a671ded90a9171913ad22c4fad51290b998316

@@ -1,2 +1,6 @@
 hii byee hiiii
+<<<<<<< HEAD
 byyyyyyeee!!!!
+=======
+byyyyyyeee!!!!
+>>>>>>> main

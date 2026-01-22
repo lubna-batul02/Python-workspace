@@ -128,7 +128,7 @@ while True:
     try:
         choice = int(input("Enter your choice: "))
     except ValueError:
-        print("❌ Enter only integer")
+        print(" Enter only integer")
         continue
 
 
@@ -183,3 +183,4 @@ while True:
 
 
     
+

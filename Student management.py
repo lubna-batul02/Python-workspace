@@ -1,3 +1,47 @@
+students=[]
+def load_details():
+    try:
+        with open("stud_file","r") as file:
+            for line in file:
+                line=line.strip()
+                if not line:
+                    continue
+                parts=line.strip().split(",")
+                students={}
+                for part in parts:
+                    if not part:
+                        continue 
+                    key,value=part.split(":",1)
+                    key,value=key.strip(),value.strip()
+                    if key == "Student_id":
+                        value = int(value)
+                        student["student_id"] = value
+                    elif key == "Age":
+                        value = int(value)
+                        student["Age"] = value
+                    elif key == "Name":
+                        student["Name"] = value
+                    elif key == "Course":
+                        student["Course"] = value
+                
+                if student:
+                    students.append(student)
+    except FileNotFoundError:
+        pass 
+
+def store_details():
+    with open ("stud_file.txt",'w')as file:
+        for i, student in enumerate(students, start=1):
+            file.write(
+                f"S.No:{i},"
+                f"Name: {student['Name']},"
+                f"ID: {student['student_id']},"
+                f"Age: {student['Age']},"
+                f"Course: {student['Course']},")
+    print("All student details saved to 'stud_file.txt'")
+
+
+
 def show_menu():
     print("____Student Management System____")
     print("1. Add Student")
@@ -6,68 +50,53 @@ def show_menu():
     print("4. Update Student")
     print("5. Delete Student")
     print("6. Exit")
-    
-students=[]
+
+
 def add_stud_details():
     while True:
         try:
             Name = input("Enter student Name: ").strip()
             if Name.isalpha():
                 break
-            else:
-                print("Enter only alphabets")
-        except:
+            print("Enter only alphabets")
+        except ValueError:
             print("Something went wrong with Name input")
             
     while True:
         try:
-            ID=int(input("Enter student ID: "))
-            break
-        except:
-            print("Enter only Integers")
-            
-    while True:
-        try:
-            Age= int(input("Enter student Age: "))
-            break
-        except:
-            print("Enter valid number for Age")
-            
-        
-    available_courses = ["BCA", "BSC", "BCOM", "BA", "MCA"]
-    while True: 
-        try:
-            print("Available Courses:", ", ".join(available_courses))
-            Course=input("Enter student Course: ")
-            if Course in available_courses:
-                break
+            student_id=int(input("Enter student ID: "))
+            if any(s["ID"]==student_id for s in students):
+                print("ID already exist. Enter new")
             else:
-                print("Invalid course! Choose from:", courses)
-        except:
-           print("Invalid Course")
-    for student in students:
-        if student==students:
-            print("Same data already exist!")
-            return
+                break
+        except ValueError:
+            print("Enter only Integers")
+    while True:
+        try: 
+            Age= int(input("Enter student Age: "))
+            break 
+        except ValueError: 
+            print("Enter valid number for Age")
 
+
+    available_courses = ["BCA","BSC","BCOM","BA","MCA"]
+    while True:
+        course = input(f"Enter student Course {available_courses}: ").upper()
+        if course in available_courses:
+            break
+        print(f" Invalid course! Choose from {available_courses}")
     student_data={
-        "Name":Name,
-        "ID":ID,
-        "Age":Age,
-        "Course":Course
+            "Name":Name,
+            "student_id":student_id,
+            "Age":Age,
+            "Course":course
     }
     students.append(student_data)
+    return student_data
+    
 
 
-def store_details():
-    with open ("stud_file.txt",'a')as file:
-        for i, student in enumerate(students, start=1):
-            file.write(
-                f"S.No:{i},"
-                f"Name: {student['Name']},"
-                f"ID: {student['ID']},"
-                f"Age: {student['Age']},"
-                f"Course: {student['Course']},")
+
 
 def stud_view():
     if len(students)==0:
@@ -75,84 +104,97 @@ def stud_view():
     else:
         print("Student list")
         for student in students:
-            print(f"ID: {student['id']}")
-            print(f"Name: {student['name']}")
-            print(f"Age: {student['age']}")
-            print(f"Course: {student['course']}")
+            print(f"ID: {student['student_id']}")
+            print(f"Name: {student['Name']}")
+            print(f"Age: {student['Age']}")
+            print(f"Course: {student['Course']}")
             print("_____________")
+
+
 def search_id():
     search_id=int(input("enter student id"))
     for student in students:
-        if ID == search_id:
-            print(f"ID: {student['id']}")
-            print(f"Name: {student['name']}")
-            print(f"Age: {student['age']}")
-            print(f"Course: {student['course']}")
+        if student["student_id"] ==search_id:
+            print(f"ID: {student['student_id']}")
+            print(f"Name: {student['Name']}")
+            print(f"Age: {student['Age']}")
+            print(f"Course: {student['Course']}")
             print("_____________")
             return
         else:
             print("ID not found!")
 
+
 def update_stud():
-    update_id=int(input("enter the id to update data:"))
-    for student in students:
-        if student["ID"] == update_id:
-            name=input("Enter a name to update")
-            age=int(input("New age:"))
-            student["Course"]=course
-                  
-            if name:
-                student["Name"]=name
-            if age.isdigit():
-                student["Age"]=int(age)
-            if course:
-                  student["Course"]=course
+    if len(students) ==0:
+        print("No students to update!")
+        return
+    try:
+        update_id=int(input("enter the id to update data:"))
+        for student in students:
+            if student["student_id"] ==update_id:
+                name=input("Enter new name")
+                age=int(input("Enter New age:"))
+                course=input("Enter new course  (BCA/BSC/BCOM/BA/MCA): ")
+                if name:
+                    student["Name"]=name
+                if age:
+                    student["Age"]=int(age)
+                if course:
+                    if course in ["BCA", "BSC", "BCOM", "BA", "MCA"]:
+                        student["course"]=course
+                else:
+                    print("Invalid course, skipping course update.")
+            store_details()
             print("Student updated successfully!")
             return
-        else:
-            print("Student not found")
+        print("Student noot found!")
+    except ValueError:
+        print("Invalid input")
+
 
 def delete_stud():
-    delete_id=int(input("enter student ID to delete:"))
-    for student in students:
-        if delete_id==ID:
-            students.remove(student)
-            print("Successfully removed Student details")
-            return
-        else:
-            ("Student not found!")
-
+    try:
+        delete_id=int(input("enter student ID to delete:"))
+        for student in students:
+            if delete_id==student["student_id"]:
+                students.remove(student)
+                print("Successfully removed Student details")
+                return
+            else:
+                ("Student Details is not added yet!")
+    except ValueError:
+        print("Invalid ID")
+load_details() 
 while True:
     show_menu()
-
     try:
-        choice = int(input("Enter your choice: "))
-    except ValueError:
-        print("❌ Enter only integer")
-        continue
+        choice=int(input("Enter your choice: "))
 
-
-        if choice==1:
-            add_stud_details()
-            print("Current students list:", students)
+        if choice == 1:
+            student=add_stud_details()
+            (f" Student '{student['Name']}' added successfully!")
+            stud_view()        
+            store_details()
         elif choice==2:
             stud_view()
-            print("Current students list:", students)
         elif choice==3:
             search_id()
-            print("Current students list:", students)
-        elif choice==4:
+        elif choice ==4:
             update_stud()
-            print("Current students list:", students)
-
-        elif choice==5:
+        elif choice == 5:
             delete_stud()
-            print("Current students list:", students)
-        elif choice==6:
-            print("exit")
+        elif choice ==6:
+            print(" Exiting program...")
             break
         else:
             print("Invalid choice")
+
+    except ValueError:
+        print(" Enter numbers only")
+        continue
+
+
 
     
                   

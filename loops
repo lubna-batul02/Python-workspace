@@ -1,0 +1,64 @@
+#1.
+num=20
+for i in range(1,num+1):
+    print(i)
+#2.
+num=50
+for i in range(1,num+1):
+    if i%2==0:
+        print(i)
+#3.
+
+num=0
+for i in range(1,101):
+    num=+i
+print(num)
+
+#4.
+n=10
+for i in range(1,n+1):
+    mult=i*7
+    print(f"{i}*{7}=",mult)
+
+
+#5.
+strr=input("enter string")
+reverse=""
+for char in strr:
+    reverse=char+reverse
+    print(reverse)
+
+#6.
+num=int(input("enter num"))
+factorial=1
+for i in range(1,num+1):
+    factorial*=i
+
+print(factorial)
+
+#7.
+start = int(input())
+end = int(input())
+
+even_sum = 0
+odd_sum = 0
+
+for i in range(start, end + 1):
+    if i % 2 == 0:
+        even_sum += i
+    else:
+        odd_sum += i
+
+print("Even sum:", even_sum)
+print("Odd sum:", odd_sum)
+
+#8.
+inputt=int(input("enter number"))
+val=0
+for i in range(inputt):
+    val+=1
+    print(val,end="")
+
+
+
+
